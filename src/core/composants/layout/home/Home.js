@@ -8,32 +8,28 @@ import { Link } from "react-router-dom";
 
 const Home =() => {
 
-    const [Car, setCar] = useState([]); 
+    const [marques, setMarques] = useState([]); 
     useEffect(() => {
         axios.get('https://formation.inow.fr/demo/api/v1/brands').then(resp => {
-            setCar(resp.data); // Assurez-vous que votre API renvoie des données sur les voitures
+            setMarques(resp.data); // Assurez-vous que votre API renvoie des données sur les voitures
         }).catch(error => {
             alert(error.message);
         });
     }, []);
 
-    <div>
-    <img src="C:\Users\salim\Downloads" alt="Tesla" />
-    
-  </div>
-    
-
+   
     return(
      <tbody>
-    {Car?.map((Car, index) => (
+    {marques?.map((marque, index) => (
         <tr key={index}>
-            <td>{Car.name}</td>
+            <td>{marque.name}</td>
             <td>
-                <img src={`/voiture/${Car.image}` }/>
+                <img src={`/voiture/${marque.image}`}/>
             </td>
             <td>
-                <Link to={`/cars/name/${Car.name}`} className="btn btn-primary">
+                <Link to={`/marque/${marque.id}`} className="btn btn-primary">
                     suivant
+                    
                 </Link>
             </td>
         </tr>

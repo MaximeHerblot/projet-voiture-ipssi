@@ -1,5 +1,5 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -9,11 +9,11 @@ const Layout = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link>
-              <NavLink to={"/"}>Home</NavLink>
+              <NavLink to={"/"}>Page d'acceuil</NavLink>
             </Nav.Link>
             <Nav.Link>
-              <NavLink to={"/voitures"}>Listes des voitures</NavLink>
-            </Nav.Link>
+              <NavLink to={"voiture"}>Listes des voitures</NavLink>
+              </Nav.Link>
             <Nav.Link>
               <NavLink to={"/voitures/creation"}>
                 Création d'une voiture
