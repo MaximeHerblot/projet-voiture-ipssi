@@ -1,7 +1,9 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
 
 const Layout = () => {
+  const login = useContext(LoginContext);
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -12,8 +14,8 @@ const Layout = () => {
               <NavLink to={"/"}>Page d'acceuil</NavLink>
             </Nav.Link>
             <Nav.Link>
-              <NavLink to={"voiture"}>Listes des voitures</NavLink>
-              </Nav.Link>
+              <NavLink to={"/voitures"}>Listes des voitures</NavLink>
+            </Nav.Link>
             <Nav.Link>
               <NavLink to={"/voitures/creation"}>
                 Création d'une voiture
