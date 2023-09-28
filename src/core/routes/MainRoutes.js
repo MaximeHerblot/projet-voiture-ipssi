@@ -5,7 +5,7 @@ const MainRoutes = () => {
     <Routes>
       <Route path="/" element={<h1>Test</h1>} />
       <Route path="/marques" />
-      <Route path="/voitures">
+      <Route path="/voitures" >
         <Route path="creation" />
         <Route path="modifier" />
       </Route>
