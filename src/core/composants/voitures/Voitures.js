@@ -7,7 +7,7 @@ const Voitures = () => {
   const [voitures, setVoitures] = useState([]);
   const [marques, setMarques] = useState({});
   const login = useContext(LoginContext);
-    
+
   useEffect(() => {
     axios.get("https://formation.inow.fr/demo/api/v1/cars").then((response) => {
       setVoitures(response.data);
@@ -22,6 +22,12 @@ const Voitures = () => {
         setMarques(tmpMarque);
       });
   }, []);
+
+  const handleDeleteVoiture = (idVoiture) => {
+    axios
+      .delete(`https://formation.inow.fr/demo/api/v1/cars/${idVoiture}`)
+      .then();
+  };
 
   return (
     <table>
@@ -41,7 +47,9 @@ const Voitures = () => {
           {login.logged && (
             <td>
               <Button>Modifier</Button>
-              <Button>Supprimer</Button>
+              <Button onClick={handleDeleteVoiture.bind(undefined, voiture.id)}>
+                Supprimer
+              </Button>
             </td>
           )}
         </tr>

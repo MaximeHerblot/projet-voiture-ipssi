@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   const handleInputChange = (e) => {
-    formInfo.current[e.target.type] = e.target.value
+    formInfo.current[e.target.name] = e.target.value
   }
 
   return (
