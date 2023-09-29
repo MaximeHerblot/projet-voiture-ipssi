@@ -2,9 +2,14 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import LoginContext from "../../store/login-context";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Creation = () => {
+  const params = useParams();
+  const type = useRef("creation");
+  if (params.id) {
+    type.current = "modification";
+  }
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -14,9 +19,9 @@ const Creation = () => {
     // "dateOfCirculation": "2023-02-01T00:00:00",
     // "brand": null,
     // "brandID": 3
-    formInfo.current.price = Number(formInfo.current.price)
-    formInfo.current.brandID = Number(formInfo.current.brandID)
-    formInfo.current.brand = null
+    formInfo.current.price = Number(formInfo.current.price);
+    formInfo.current.brandID = Number(formInfo.current.brandID);
+    formInfo.current.brand = null;
     axios
       .post("https://formation.inow.fr/demo/api/v1/cars", formInfo.current)
       .then(() => {

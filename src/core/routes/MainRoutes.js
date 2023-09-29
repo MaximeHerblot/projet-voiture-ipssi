@@ -22,7 +22,7 @@ const MainRoutes = () => {
         {login.logged && (
           <>
             <Route path="creation" element={<CreationVoiture />} />
-            <Route path="modifier" />
+            <Route path="modifier/:id" element={<CreationVoiture />}/>
           </>
         )}
       </Route>
