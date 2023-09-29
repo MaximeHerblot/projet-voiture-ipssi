@@ -1,11 +1,13 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+//import { useContext } from "react";
+//import LoginContext from "../store/login-context";
 
 const Layout = () => {
-  const login = useContext(LoginContext);
+ // const login = useContext(LoginContext);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -22,6 +24,24 @@ const Layout = () => {
               </NavLink>
             </Nav.Link>
           </Nav>
+
+            {/* Barre de recherche tout à droite */}
+          <div className="col-md-6 ms-auto">
+            <form action="">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Recherche"
+                />
+                <button type="submit" className="btn btn-outline-light">
+                  Rechercher
+                </button>
+              </div>
+            </form>
+          </div>
+          {/* Fin de la barre de recherche */}
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>

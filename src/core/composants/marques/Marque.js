@@ -22,6 +22,8 @@ const Marque = () => {
 
     console.log(voitures)
     return (
+
+        
         <ul className="list-group">
 
          {voitures?.map((voiture) => (
