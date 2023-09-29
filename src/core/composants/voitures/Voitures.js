@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import classes from "./Voitures.module.css"
 
 const Voitures = () => {
   const [voitures, setVoitures] = useState([]);
@@ -60,7 +61,7 @@ const Voitures = () => {
           {login.logged && (
             <td>
               <Button>
-                <Link to={`/voitures/modifier/${voiture.id}`}> Modifier </Link>
+                <Link className={classes.modifier} to={`/voitures/modifier/${voiture.id}`}> Modifier </Link>
               </Button>
               <Button onClick={handleDeleteVoiture.bind(undefined, voiture.id)}>
                 Supprimer

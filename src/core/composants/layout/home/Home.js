@@ -25,10 +25,10 @@ const Home =() => {
         <div className="row">
             {marques?.map((marque, index) => (
                 <div key={index} className="col-md-3 text-center mb-4">
-                    <div className="d-flex flex-column align-items-center" >
+                    <div style={{height:"100%", justifyContent:"space-between"}} className="d-flex flex-column align-items-center" >
                         <h4>{marque.name}</h4>
                         <img src={`/voiture/${marque.image}`} alt={marque.name} />
-                        <Link to={`/marque/${marque.id}`} className="btn btn-primary mt-2">
+                        <Link  to={`/marque/${marque.id}`} className="btn btn-primary mt-2">
                             Suivant
                         </Link>
                     </div>

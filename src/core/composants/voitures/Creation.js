@@ -71,7 +71,6 @@ const Creation = () => {
     setFormInfo((previousState, value) => {
       return { ...previousState, [e.target.name]: e.target.value };
     });
-    // formInfo[e.target.name] = e.target.value;
   };
   const [marques, setMarques] = useState([]);
   const login = useContext(LoginContext);
@@ -105,6 +104,7 @@ const Creation = () => {
           name="model"
           onChange={handleInputChange}
           value={formInfo.model}
+          required
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicText">
@@ -115,6 +115,7 @@ const Creation = () => {
           name="price"
           onChange={handleInputChange}
           value={formInfo.price}
+          required
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicText">
@@ -124,6 +125,7 @@ const Creation = () => {
           placeholder="Date de mise en circulation"
           name="dateOfCirculation"
           onChange={handleInputChange}
+          required
           value={DateToHTMLDateInputValue(new Date(formInfo.dateOfCirculation))}
         />
       </Form.Group>
