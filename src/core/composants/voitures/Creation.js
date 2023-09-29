@@ -6,10 +6,21 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Creation = () => {
   const params = useParams();
+  const [isCalled, setIsCalled] = useState(false);
   const type = useRef("creation");
   if (params.id) {
     type.current = "modification";
   }
+  useEffect(() => {
+    if (type.current === "modification") {
+      axios
+        .get(`https://formation.inow.fr/demo/api/v1/cars/${params.id}`)
+        .then((response) => {
+          setFormInfo(response.data);
+          setIsCalled(true);
+        });
+    }
+  }, []);
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -19,22 +30,39 @@ const Creation = () => {
     // "dateOfCirculation": "2023-02-01T00:00:00",
     // "brand": null,
     // "brandID": 3
-    formInfo.current.price = Number(formInfo.current.price);
-    formInfo.current.brandID = Number(formInfo.current.brandID);
-    formInfo.current.brand = null;
-    axios
-      .post("https://formation.inow.fr/demo/api/v1/cars", formInfo.current)
-      .then(() => {
-        navigate("/voitures");
-      });
+    let newFormInfo = {
+      ...formInfo,
+      price: Number(formInfo.price),
+      brandID: Number(formInfo.brandID),
+      brand: null,
+    };
+
+    // formInfo.current.price = Number(formInfo.current.price);
+    // formInfo.current.brandID = Number(formInfo.current.brandID);
+    // formInfo.current.brand = null;
+    if (type.current === "creation"){
+
+        axios
+        .post("https://formation.inow.fr/demo/api/v1/cars", newFormInfo)
+        .then(() => {
+            navigate("/voitures");
+        });
+    } else if (type.current === "modification"){
+        axios.put(`https://formation.inow.fr/demo/api/v1/cars/${params.id}`,newFormInfo).then(()=>{
+            navigate("/voitures")
+        })
+    }
   };
 
-  const formInfo = useRef({});
+  const [formInfo, setFormInfo] = useState({});
   const handleInputChange = (e) => {
-    if (e.target.name === "price" || e.target.name === "brand") {
+    if (e.target.name === "price" || e.target.name === "brandID") {
       e.target.value = Number(e.target.value);
     }
-    formInfo.current[e.target.name] = e.target.value;
+    setFormInfo((previousState, value) => {
+      return { ...previousState, [e.target.name]: e.target.value };
+    });
+    // formInfo[e.target.name] = e.target.value;
   };
   const [marques, setMarques] = useState([]);
   const login = useContext(LoginContext);
@@ -50,16 +78,24 @@ const Creation = () => {
         setMarques(response.data);
       });
   }, []);
-
+  const DateToHTMLDateInputValue = (date) => {
+    console.log(date);
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(
+      2,
+      "0"
+    )}-${date.getDate()}`;
+  };
   return (
     <Form onSubmit={handleSubmitForm}>
       <Form.Group className="mb-3" controlId="formBasicText">
         <Form.Label>Modele</Form.Label>
+
         <Form.Control
           type="text"
           placeholder="Modele"
           name="model"
           onChange={handleInputChange}
+          value={formInfo.model}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicText">
@@ -69,6 +105,8 @@ const Creation = () => {
           placeholder="prix"
           name="price"
           onChange={handleInputChange}
+          value={formInfo.price}
+
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicText">
@@ -78,6 +116,9 @@ const Creation = () => {
           placeholder="Date de mise en circulation"
           name="dateOfCirculation"
           onChange={handleInputChange}
+            value={DateToHTMLDateInputValue(
+              new Date(formInfo.dateOfCirculation)
+            )}
         />
       </Form.Group>
       <Form.Select
@@ -85,6 +126,7 @@ const Creation = () => {
         aria-label="Marque"
         onChange={handleInputChange}
         required
+        value={formInfo.brandID}
       >
         <option value="0">Veuillez choisir une marque</option>
         {marques.map((marque, index) => (
