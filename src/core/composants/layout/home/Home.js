@@ -16,31 +16,42 @@ const Home =() => {
             alert(error.message);
         });
     }, []);
-
+    const buttonStyle = {
+        marginTop: "auto", // Alignez les boutons en bas de leur conteneur
+    };
    
     return(
-     <tbody>
-
-    {marques?.map((marque, index) => (
-        <tr key={index}>
-            <td>{marque.name}</td>
-            <td>
-                <img src={`/voiture/${marque.image}`}/>
-            </td>
-            <td>
-                <Link to={`/marque/${marque.id}`} className="btn btn-primary">
-                    suivant
-                    
-                </Link>
-            </td>
-        </tr>
-    ))}
-    </tbody>
-
-    );
-       
+        <div className="container">
+        <div className="row">
+            {marques?.map((marque, index) => (
+                <div key={index} className="col-md-3 text-center mb-4">
+                    <div className="d-flex flex-column align-items-center" >
+                        <h4>{marque.name}</h4>
+                        <img src={`/voiture/${marque.image}`} alt={marque.name} />
+                        <Link to={`/marque/${marque.id}`} className="btn btn-primary mt-2">
+                            Suivant
+                        </Link>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
 }
+
+
+
+
+
+
 export default Home;
+
+
+
+
+
+
+
 
 
 

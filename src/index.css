@@ -15,3 +15,10 @@ code {
 .no-underline {
   text-decoration: none !important; /* Supprime le soulignement avec !important pour priorité */
 }
+
+.centered-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Si nécessaire pour centrer verticalement */
+}
