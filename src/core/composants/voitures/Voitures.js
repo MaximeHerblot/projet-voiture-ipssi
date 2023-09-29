@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import LoginContext from "../../store/login-context";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Voitures = () => {
   const [voitures, setVoitures] = useState([]);
   const [marques, setMarques] = useState({});
   const login = useContext(LoginContext);
-
   useEffect(() => {
     axios.get("https://formation.inow.fr/demo/api/v1/cars").then((response) => {
       setVoitures(response.data);
@@ -24,9 +24,20 @@ const Voitures = () => {
   }, []);
 
   const handleDeleteVoiture = (idVoiture) => {
-    axios
-      .delete(`https://formation.inow.fr/demo/api/v1/cars/${idVoiture}`)
-      .then();
+    if (window.confirm(`Voulez-vous supprimer la voitures avec l'id ${idVoiture} `)) {
+
+      axios
+        .delete(`https://formation.inow.fr/demo/api/v1/cars/${idVoiture}`)
+        .then(()=> {
+            let tmpVoitures = []
+            voitures.forEach((voiture, index)=>{
+                if (!(voiture.id === idVoiture)){
+                    tmpVoitures.push(voiture)
+                }
+            })
+            setVoitures(tmpVoitures)
+        });
+    }
   };
 
   return (
@@ -46,7 +57,9 @@ const Voitures = () => {
           <td>{marques[voiture?.brandID]?.name}</td>
           {login.logged && (
             <td>
-              <Button>Modifier</Button>
+              <Button>
+                <Link to={`/voitures/modifier/${voiture.id}`}> Modifier </Link>
+              </Button>
               <Button onClick={handleDeleteVoiture.bind(undefined, voiture.id)}>
                 Supprimer
               </Button>
