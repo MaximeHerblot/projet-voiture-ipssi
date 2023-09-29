@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import LoginContext from "../../store/login-context";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Creation = () => {
   const params = useParams();
@@ -40,17 +41,25 @@ const Creation = () => {
     // formInfo.current.price = Number(formInfo.current.price);
     // formInfo.current.brandID = Number(formInfo.current.brandID);
     // formInfo.current.brand = null;
-    if (type.current === "creation"){
-
-        axios
+    if (type.current === "creation") {
+      axios
         .post("https://formation.inow.fr/demo/api/v1/cars", newFormInfo)
         .then(() => {
-            navigate("/voitures");
+          toast.success("Vous avez bien créer une voiture");
+
+          navigate("/voitures");
         });
-    } else if (type.current === "modification"){
-        axios.put(`https://formation.inow.fr/demo/api/v1/cars/${params.id}`,newFormInfo).then(()=>{
-            navigate("/voitures")
-        })
+    } else if (type.current === "modification") {
+      axios
+        .put(
+          `https://formation.inow.fr/demo/api/v1/cars/${params.id}`,
+          newFormInfo
+        )
+        .then(() => {
+          toast.success("Vous avez bien modifié une voiture");
+
+          navigate("/voitures");
+        });
     }
   };
 
@@ -80,7 +89,7 @@ const Creation = () => {
   }, []);
   const DateToHTMLDateInputValue = (date) => {
     console.log(date);
-    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
       "0"
     )}-${date.getDate()}`;
@@ -106,7 +115,6 @@ const Creation = () => {
           name="price"
           onChange={handleInputChange}
           value={formInfo.price}
-
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicText">
@@ -116,9 +124,7 @@ const Creation = () => {
           placeholder="Date de mise en circulation"
           name="dateOfCirculation"
           onChange={handleInputChange}
-            value={DateToHTMLDateInputValue(
-              new Date(formInfo.dateOfCirculation)
-            )}
+          value={DateToHTMLDateInputValue(new Date(formInfo.dateOfCirculation))}
         />
       </Form.Group>
       <Form.Select

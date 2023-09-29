@@ -3,6 +3,7 @@ import LoginContext from "../../store/login-context";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Voitures = () => {
   const [voitures, setVoitures] = useState([]);
@@ -35,6 +36,7 @@ const Voitures = () => {
                     tmpVoitures.push(voiture)
                 }
             })
+            toast.success("Vous avez bien supprimé une voiture");  
             setVoitures(tmpVoitures)
         });
     }
